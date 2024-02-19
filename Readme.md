@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Артём Клюкин](https://up.htmlacademy.ru/univer-nodejs-api/3/user/2178701).
-* Наставник: `Неизвестно`.
+* Наставник: [Владислав Поляков](https://htmlacademy.ru/profile/polrk).
 
 ---
 
