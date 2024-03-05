@@ -5,4 +5,4 @@ export * from './house-type.enum.js';
 export * from './facilities.enum.js';
 export * from './coordinates.enum.js';
 export * from './city.enum.js';
-
+export * from './mock-server-data.type.js';
