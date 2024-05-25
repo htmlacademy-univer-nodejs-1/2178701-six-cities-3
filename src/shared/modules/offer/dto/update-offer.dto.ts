@@ -17,4 +17,5 @@ export class UpdateOfferDto {
   public facilities: Facilities[];
   public coordinates: Coordinates;
   public authorId: string;
+  public numberComments: number;
 }

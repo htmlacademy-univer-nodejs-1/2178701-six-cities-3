@@ -12,5 +12,6 @@ export interface OfferService {
   findNew(count: number): Promise<DocumentType<OfferEntity>[]>;
   findPopular(count: number): Promise<DocumentType<OfferEntity>[]>;
   incCommentCount(offerId: string): Promise<DocumentType<OfferEntity> | null>;
+  calculateTotalRating(id: string, newRating: number, newCommentsCount: number): Promise<DocumentType<OfferEntity> | null>;
   exists(documentId: string): Promise<boolean>;
 }
