@@ -1,4 +1,4 @@
-import { Offer, City, HouseType, Facilities, User, Coordinates } from '../types/index.js';
+import { Offer, City, HouseType, Facilities, User, Coordinates, UserType } from '../types/index.js';
 
 
 export function createOffer(offerData: string): Offer {
@@ -20,13 +20,15 @@ export function createOffer(offerData: string): Offer {
     name,
     email,
     avatarPath,
-    coordinates
+    coordinates,
+    numberComments
   ] = offerData.replace('\n', '').split('\t');
 
   const user: User = {
     name,
     email,
-    avatarPath
+    avatarPath,
+    type: type as UserType
   };
 
   return {
@@ -46,5 +48,6 @@ export function createOffer(offerData: string): Offer {
     facilities: facilities ? facilities.split(';').map((facility) => facility.trim()) as Facilities[] : [],
     author: user,
     coordinates: coordinates as Coordinates,
+    numberComments: parseInt(numberComments, 10),
   };
 }

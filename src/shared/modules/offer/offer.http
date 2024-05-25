@@ -1,0 +1,11 @@
+# Офферы
+## Получить список офферов
+GET http://localhost:6000/offers HTTP/1.1
+Content-Type: application/json
+
+###
+## Создать оффер
+POST http://localhost:6000/offers HTTP/1.1
+Content-Type: application/json
+
+###

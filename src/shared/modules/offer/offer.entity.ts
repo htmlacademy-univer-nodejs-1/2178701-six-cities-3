@@ -74,6 +74,9 @@ export class OfferEntity extends defaultClasses.TimeStamps {
     required: true
   })
   public authorId!: Ref<UserEntity>;
+
+  @prop({type: Number, default: 0})
+  public numberComments: number;
 }
 
 export const OfferModel = getModelForClass(OfferEntity);

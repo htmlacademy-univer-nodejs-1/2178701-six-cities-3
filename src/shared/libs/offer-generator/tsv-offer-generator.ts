@@ -1,7 +1,7 @@
 
 import { OfferGenerator } from './offer-generator.interface.js';
 import { MockServerData } from '../../types/index.js';
-import { getRandomItem, getRandomItems } from '../../helpers/index.js';
+import { generateRandomValue, getRandomItem, getRandomItems } from '../../helpers/index.js';
 
 
 export class TSVOfferGenerator implements OfferGenerator {
@@ -26,11 +26,12 @@ export class TSVOfferGenerator implements OfferGenerator {
     const email = getRandomItem<string>(this.mockData.authorEmails);
     const avatarPath = getRandomItem<string>(this.mockData.authorAvatars);
     const coordinates = getRandomItem<string>(this.mockData.coordinates);
+    const numberComments = generateRandomValue(0, 30);
 
     return [
       title, description, postDate, city, previewPhoto, photos, isPremium,
       isFavorite, rating, type, roomCount, guestsCount, price, facilities,
-      author, email, avatarPath, coordinates
+      author, email, avatarPath, coordinates, numberComments
     ].join('\t');
   }
 }
