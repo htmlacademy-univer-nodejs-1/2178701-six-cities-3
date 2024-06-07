@@ -30,7 +30,7 @@ export class DefaultOfferService implements OfferService {
   public async find(): Promise<DocumentType<OfferEntity>[]> {
     return this.offerModel
       .find()
-      .populate(['userId'])
+      .populate(['authorId'])
       .exec();
   }
 
@@ -43,7 +43,7 @@ export class DefaultOfferService implements OfferService {
   public async updateById(offerId: string, dto: UpdateOfferDto): Promise<DocumentType<OfferEntity> | null> {
     return this.offerModel
       .findByIdAndUpdate(offerId, dto, { new: true })
-      .populate(['userId'])
+      .populate(['authorId'])
       .exec();
   }
 
@@ -69,7 +69,7 @@ export class DefaultOfferService implements OfferService {
       .sort({ createdAt: SortType.Down })
       .skip(skip)
       .limit(limit)
-      .populate('userId')
+      .populate('authorId')
       .exec();
   }
 
@@ -101,7 +101,7 @@ export class DefaultOfferService implements OfferService {
 
     return this.offerModel
       .findByIdAndUpdate(id, {rating: rating[0]}, {new: true})
-      .populate('userId')
+      .populate('authorId')
       .exec();
   }
 
@@ -113,7 +113,7 @@ export class DefaultOfferService implements OfferService {
       .find({ isFavorite: isFavorite })
       .skip(skip)
       .limit(limit)
-      .populate('userId')
+      .populate('authorId')
       .exec();
   }
 }

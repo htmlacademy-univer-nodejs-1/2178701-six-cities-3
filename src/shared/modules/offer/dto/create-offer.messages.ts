@@ -46,6 +46,6 @@ export const CreateOfferValidationMessage = {
     invalidFormat: 'Location must be a valid object',
   },
   authorId: {
-    invalidId: 'userId field must be a valid id',
+    invalidId: 'authorId field must be a valid id',
   },
 } as const;

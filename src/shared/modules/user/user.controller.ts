@@ -46,11 +46,11 @@ export class UserController extends BaseController {
       middlewares: [new ValidateDtoMiddleware(LoginUserDto)]
     });
     this.addRoute({
-      path: '/:userId/avatar',
+      path: '/:authorId/avatar',
       method: HttpMethod.Post,
       handler: this.uploadAvatar,
       middlewares: [
-        new ValidateObjectIdMiddleware('userId'),
+        new ValidateObjectIdMiddleware('authorId'),
         new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), 'avatar'),
       ]
     });
@@ -101,7 +101,7 @@ export class UserController extends BaseController {
   public async checkAuthenticate({ tokenPayload: { email }}: Request, res: Response) {
     const foundedUser = await this.userService.findByEmail(email);
 
-    if (! foundedUser) {
+    if (!foundedUser) {
       throw new HttpError(
         StatusCodes.UNAUTHORIZED,
         'Unauthorized',

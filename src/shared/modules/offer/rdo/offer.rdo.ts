@@ -1,9 +1,6 @@
 import { Expose } from 'class-transformer';
-import { City } from '../../../types';
-import { HouseType } from '../../../types';
-import { Facilities } from '../../../types';
-import { Coordinates } from '../../../types';
-import { UserEntity } from '../../../modules/user/user.entity';
+import { City, HouseType, Facilities, Coordinates } from '../../../types/index.js';
+import { UserEntity } from '../../../modules/user/user.entity.js';
 import { Ref } from '@typegoose/typegoose';
 
 export class OfferRdo {

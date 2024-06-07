@@ -10,7 +10,7 @@ import { OfferRdo } from './rdo/offer.rdo.js';
 import { CreateOfferDto } from './dto/create-offer.dto.js';
 import { HttpError } from '../../libs/rest/errors/http-error.js';
 import { StatusCodes } from 'http-status-codes';
-import { ParamOfferId } from './type/param-offerid.type.js';
+import { ParamOfferId } from './type/param.offerid.type.js';
 import { UpdateOfferDto } from './dto/update-offer.dto.js';
 import { CommentService } from '../comment/comment-service.interface.js';
 import { CommentRdo } from '../comment/rdo/comment.rdo.js';
@@ -27,6 +27,7 @@ export class OfferController extends BaseController {
   constructor(
     @inject(Component.Logger) protected readonly logger: Logger,
     @inject(Component.OfferService) private readonly offerService: OfferService,
+    @inject(Component.CommentService) private readonly commentService: CommentService,
   ) {
     super(logger);
 
@@ -124,7 +125,7 @@ export class OfferController extends BaseController {
     { body, tokenPayload }: Request<RequestParams, RequestBody, CreateOfferDto>,
     res: Response
   ): Promise<void> {
-    const result = await this.offerService.create({ ...body, userId: tokenPayload.id });
+    const result = await this.offerService.create({ ...body, authorId: tokenPayload.id });
     this.created(res, fillDTO(OfferRdo, result));
   }
 
@@ -189,7 +190,7 @@ export class OfferController extends BaseController {
         'OfferController'
       );
     }
-    const comments = await this.CommentService.findByOfferId(params.offerId);
+    const comments = await this.commentService.findByOfferId(params.offerId);
     this.ok(res, fillDTO(CommentRdo, comments));
   }
 

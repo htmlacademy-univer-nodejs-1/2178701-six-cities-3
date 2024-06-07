@@ -8,8 +8,8 @@ import { getMongoURI } from '../shared/helpers/index.js';
 import { OfferController } from '../shared/modules/offer/offer.controller.js';
 import { ExceptionFilter } from '../shared/libs/rest/exception-filter/exception-filter.interface.js';
 import { Controller } from '../shared/libs/rest/controller/controller.interface';
-import CommentController from '../shared/modules/comment/comment.controller';
-import { ParseTokenMiddleware } from '../shared/libs/rest/middleware/parse-token.middleware';
+import CommentController from '../shared/modules/comment/comment.controller.js';
+import { ParseTokenMiddleware } from '../shared/libs/rest/middleware/parse-token.middleware.js';
 
 @injectable()
 export class RestApplication {

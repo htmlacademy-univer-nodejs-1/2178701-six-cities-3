@@ -3,8 +3,8 @@ import { CreateCommentDto } from './dto/create-comment.dto.js';
 import { DocumentType, types } from '@typegoose/typegoose';
 import { CommentEntity } from './comment.entity.js';
 import { inject, injectable } from 'inversify';
-import { Component } from '../../types/';
-import { Logger } from '../../libs/logger/';
+import { Component } from '../../types/index.js';
+import { Logger } from '../../libs/logger/index.js';
 
 @injectable()
 export class DefaultCommentService implements CommentService {
@@ -24,7 +24,7 @@ export class DefaultCommentService implements CommentService {
   public async findByOfferId(offerId: string): Promise<DocumentType<CommentEntity>[]> {
     return this.commentModel
       .find({ offerId })
-      .populate('userId');
+      .populate('authorId');
   }
 
   public async deleteByOfferId(offerId: string): Promise<number> {

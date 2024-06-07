@@ -38,9 +38,9 @@ export class DefaultUserService implements UserService {
     return this.create(dto, salt);
   }
 
-  updateById(userId: string, dto: UpdateUserDto): Promise<DocumentType<UserEntity> | null> {
+  updateById(authorId: string, dto: UpdateUserDto): Promise<DocumentType<UserEntity> | null> {
     return this.userModel
-      .findByIdAndUpdate(userId, dto, { new: true })
+      .findByIdAndUpdate(authorId, dto, { new: true })
       .exec();
   }
 }
