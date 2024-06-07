@@ -72,13 +72,11 @@ export class ImportCommand implements Command {
   }
 
   public async execute(filename: string, login: string, password: string, host: string, dbname: string, salt: string): Promise<void> {
-    console.log(filename);
-    console.log(login);
-    console.log(password);
-    console.log(host);
-    console.log(dbname);
+    if (!filename || !login || !password || !host || !dbname || !salt) {
+      throw new Error('Wrong parameters');
+    }
+
     const uri = getMongoURI(login, password, host, DEFAULT_DB_PORT, dbname);
-    console.log(uri);
     this.salt = salt;
 
     await this.databaseClient.connect(uri);
