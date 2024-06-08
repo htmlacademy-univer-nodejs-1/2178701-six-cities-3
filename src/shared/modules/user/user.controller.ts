@@ -99,19 +99,21 @@ export class UserController extends BaseController {
     this.ok(res, responseData);
   }
 
-  public async uploadAvatar({ params, file }: Request, res: Response) {
+  public async uploadAvatar({ params, body }: Request, res: Response) {
     const { userId } = params;
-    const user = await this.userService.findById(userId);
-    if (!user) {
+    const { avatarPath } = body;
+
+    if (!avatarPath) {
       throw new HttpError(
-        StatusCodes.NOT_FOUND,
-        'User not found',
-        'UserController',
+        StatusCodes.BAD_REQUEST,
+        'No avatarPath provided',
+        'UserController'
       );
     }
-    const uploadFile = { avatarPath: file?.filename };
+
+    const uploadFile = { avatarPath };
     await this.userService.updateById(userId, uploadFile);
-    this.created(res, fillDTO(UploadUserAvatarRdo, { avatarPath: uploadFile.avatarPath }));
+    this.created(res, fillDTO(UploadUserAvatarRdo, { filepath: uploadFile.avatarPath }));
   }
 
   public async checkAuthenticate({ tokenPayload: { email }}: Request, res: Response) {

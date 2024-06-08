@@ -395,7 +395,7 @@ paths:
       requestBody:
         description: Аватар пользователя.
         content:
-          multipart/form-data:
+          application/json::
             schema:
               required:
                 - avatar
@@ -798,7 +798,6 @@ components:
         - text
         - postDate
         - rating
-        - authorId
 
       properties:
         id: 
@@ -817,18 +816,14 @@ components:
           type: number
           example: 2
 
-        authorId:
-          type: string
-          example: 661bef9f1bdfe1195539b653
-
     createComment:
       type: object
 
       required:
         - text
         - rating
-        - postDate
-        - authorId
+        - userId
+        - offerId
       
       properties:
         text:
@@ -839,9 +834,13 @@ components:
           type: number
           example: 4
 
-        authorId:
+        userId:
           type: string
-          example: 661bef9f1bdfe1195539b653
+          example: 666438ea4fd6e9f3fe807169
+
+        offerId:
+          type: string
+          example: 6662e498cc90ecad29ce93bc
 
   securitySchemes:
     bearerAuth:
