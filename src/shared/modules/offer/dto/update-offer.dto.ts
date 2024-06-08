@@ -1,6 +1,6 @@
-import { HouseType, City, Facilities, Coordinates } from '../../../types';
+import { HouseType, City, Facilities, Coordinates } from '../../../types/index.js';
 import { IsArray, IsBoolean, IsEnum, IsMongoId, IsObject, Max, MaxLength, Min, MinLength } from 'class-validator';
-import { CreateOfferValidationMessage } from './create-offer.messages';
+import { CreateOfferValidationMessage } from './create-offer.messages.js';
 
 
 export class UpdateOfferDto {

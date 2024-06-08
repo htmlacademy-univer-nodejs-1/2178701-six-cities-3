@@ -43,9 +43,9 @@ export const CreateOfferValidationMessage = {
       'Element must be one of Breakfast, Air conditioning, Laptop friendly workspace, Baby seat, Washer, Towels, Fridge',
   },
   coordinates: {
-    invalidFormat: 'Location must be a valid object',
+    invalidFormat: 'Coordinates must be a valid object',
   },
   authorId: {
-    invalidId: 'userId field must be a valid id',
+    invalidId: 'authorId field must be a valid id',
   },
 } as const;

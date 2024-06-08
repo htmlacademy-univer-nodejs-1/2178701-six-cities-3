@@ -74,6 +74,19 @@ npm run mock:server
 
 Будет запущен mock server
 
+### Переменные окружения
+
+PORT=5000 - Порт на котором запуститься приложение
+SALT=secret - Соль для хеширования
+DB_HOST=127.0.0.1 - Адрес, на котором размещена база данных
+DB_USER=admin - Имя пользователя базы данных
+DB_PASSWORD=test - Пароль пользователя к базы данных
+DB_NAME=six-cities_mongodb - Название базы данных
+UPLOAD_DIRECTORY=/Users/username/Documents/GitHub/2178701-six-cities-3 - Директория для храния файлов
+JWT_SECRET=secret - Это ключ для шифровки и проверки подписи 
+HOST=localhost - Адрес, на котором размещено приложение
+STATIC_DIRECTORY=static - Директория для хранения статических файлов
+
 ## Структура проекта
 
 ### Директория `src`

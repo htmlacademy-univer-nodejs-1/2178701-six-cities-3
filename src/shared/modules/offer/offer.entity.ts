@@ -30,7 +30,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop()
   public previewPhoto!: string;
 
-  @prop()
+  @prop({ type: () => [String] })
   public photos!: string[];
 
   @prop()

@@ -62,6 +62,7 @@ export class ImportCommand implements Command {
       coordinates: offer.coordinates,
       price: offer.price,
       type: offer.type,
+      numberComments: 0
     });
 
   }
@@ -71,6 +72,10 @@ export class ImportCommand implements Command {
   }
 
   public async execute(filename: string, login: string, password: string, host: string, dbname: string, salt: string): Promise<void> {
+    if (!filename || !login || !password || !host || !dbname || !salt) {
+      throw new Error('Wrong parameters');
+    }
+
     const uri = getMongoURI(login, password, host, DEFAULT_DB_PORT, dbname);
     this.salt = salt;
 
