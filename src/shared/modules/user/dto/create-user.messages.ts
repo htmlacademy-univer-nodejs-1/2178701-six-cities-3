@@ -1,6 +1,6 @@
 export const CreateUserMessages = {
   name: {
-    invalidFormat: 'firstname is required',
+    invalidFormat: 'name is required',
     lengthField: 'min length is 1, max is 15',
   },
   email: {

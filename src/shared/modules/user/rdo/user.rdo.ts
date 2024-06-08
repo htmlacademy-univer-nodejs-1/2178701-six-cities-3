@@ -13,8 +13,8 @@ export class UserRdo {
   public avatarPath: string;
 
   @Expose()
-  public password: string;
+  public type: UserType;
 
   @Expose()
-  public type: UserType;
+  public id: string;
 }

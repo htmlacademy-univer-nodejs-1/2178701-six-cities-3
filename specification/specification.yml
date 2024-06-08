@@ -288,7 +288,7 @@ paths:
         "500":
           description: Внутренняя ошибка сервера
 
-  /register:
+  /users/register:
     post:
       tags:
         - users
@@ -320,7 +320,7 @@ paths:
         "500":
           description: Внутренняя ошибка сервера
 
-  /login:
+  /users/login:
     post:
       tags:
         - users
@@ -344,6 +344,10 @@ paths:
                   - properties:
                       token:
                         type: string
+                        example: "Bearer <token>"
+                      id:
+                        type: string
+                        example: "661bef9f1bdfe1195539b653"
         "400":
           description: Неправильный запрос
         "500":
@@ -368,9 +372,6 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/user"
-                  - properties:
-                      token:
-                        type: string
         "400":
           description: Неправильный запрос
         "401":
@@ -378,7 +379,7 @@ paths:
         "500":
           description: Внутренняя ошибка сервера
   
-  /{userId}/avatar:
+  /users/{userId}/avatar:
     post:
       tags:
         - users
@@ -399,7 +400,7 @@ paths:
               required:
                 - avatar
               properties:
-                avatarUrl:
+                avatarPath:
                   type: string
                   example: photo.jpg
       responses:
@@ -412,7 +413,7 @@ paths:
         "500":
           description: Внутренняя ошибка сервера
 
-  /logout:
+  /users/logout:
     delete:
       tags:
         - users
@@ -444,9 +445,9 @@ components:
     userType:
       type: string
       enum:
-        - regular
-        - pro
-      example: pro
+        - Regular
+        - Pro
+      example: Pro
 
     city:
       type: string

@@ -20,6 +20,8 @@ import { ValidateObjectIdMiddleware } from '../../libs/rest/middleware/validate-
 import { UploadFileMiddleware } from '../../libs/rest/middleware/upload-file.middleware.js';
 import { AuthService } from '../auth/auth-service.interface.js';
 import { LoggedUserRdo } from './rdo/logged-user.rdo.js';
+import { LogoutUserRequest } from './logout-user-request.type.js';
+import { UploadUserAvatarRdo } from './rdo/upload-user-avatar.rdo.js';
 
 
 @injectable()
@@ -46,12 +48,12 @@ export class UserController extends BaseController {
       middlewares: [new ValidateDtoMiddleware(LoginUserDto)]
     });
     this.addRoute({
-      path: '/:authorId/avatar',
+      path: '/:userId/avatar',
       method: HttpMethod.Post,
       handler: this.uploadAvatar,
       middlewares: [
-        new ValidateObjectIdMiddleware('authorId'),
-        new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), 'avatar'),
+        new ValidateObjectIdMiddleware('userId'),
+        new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), 'image'),
       ]
     });
     this.addRoute({
@@ -59,6 +61,7 @@ export class UserController extends BaseController {
       method: HttpMethod.Get,
       handler: this.checkAuthenticate,
     });
+    this.addRoute({ path: '/logout', method: HttpMethod.Delete, handler: this.logout });
   }
 
   public async create(
@@ -86,16 +89,29 @@ export class UserController extends BaseController {
     const user = await this.authService.verify(body);
     const token = await this.authService.authenticate(user);
     const responseData = fillDTO(LoggedUserRdo, {
+      name: user.name,
       email: user.email,
+      avatarPath: user.avatarPath,
+      type: user.type,
       token,
+      id: user.id,
     });
     this.ok(res, responseData);
   }
 
-  public async uploadAvatar(req: Request, res: Response) {
-    this.created(res, {
-      filepath: req.file?.path
-    });
+  public async uploadAvatar({ params, file }: Request, res: Response) {
+    const { userId } = params;
+    const user = await this.userService.findById(userId);
+    if (!user) {
+      throw new HttpError(
+        StatusCodes.NOT_FOUND,
+        'User not found',
+        'UserController',
+      );
+    }
+    const uploadFile = { avatarPath: file?.filename };
+    await this.userService.updateById(userId, uploadFile);
+    this.created(res, fillDTO(UploadUserAvatarRdo, { avatarPath: uploadFile.avatarPath }));
   }
 
   public async checkAuthenticate({ tokenPayload: { email }}: Request, res: Response) {
@@ -110,6 +126,25 @@ export class UserController extends BaseController {
     }
 
     this.ok(res, fillDTO(LoggedUserRdo, foundedUser));
+  }
+
+  public async logout(
+    { body }: LogoutUserRequest,
+    _res: Response,
+  ): Promise<void> {
+    if (!body.token) {
+      throw new HttpError(
+        StatusCodes.BAD_REQUEST,
+        'Not found token',
+        'UserController',
+      );
+    }
+
+    throw new HttpError(
+      StatusCodes.NOT_IMPLEMENTED,
+      'Not implemented',
+      'UserController',
+    );
   }
 
 }
