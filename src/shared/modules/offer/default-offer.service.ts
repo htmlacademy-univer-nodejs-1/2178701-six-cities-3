@@ -27,9 +27,11 @@ export class DefaultOfferService implements OfferService {
     return this.offerModel.findById(offerId).exec();
   }
 
-  public async find(): Promise<DocumentType<OfferEntity>[]> {
+  public async find(limit: number): Promise<DocumentType<OfferEntity>[]> {
     return this.offerModel
       .find()
+      .sort({ postDate: SortType.Down })
+      .limit(limit)
       .populate(['authorId'])
       .exec();
   }

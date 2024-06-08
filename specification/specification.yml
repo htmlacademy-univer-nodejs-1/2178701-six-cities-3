@@ -197,38 +197,49 @@ paths:
         "500":
           description: Внутренняя ошибка сервера
 
-  /favorite/{offerId}/{status}:
+  /offers/{offerId}/favorites:
     post:
       tags:
         - offers
-      summary: Добавление/удаление предложения в избранное/из избранного
-      description: Добавляет/удаляет в список/из списка избранных предложение
+      summary: Добавление предложения в избранное
+      description: Добавляет предложение в список избранных предложений
+      security:
+        - bearerAuth: []
       parameters:
         - name: offerId
           in: path
           required: true
           schema:
             type: string
-        - name: status
+      responses:
+        "200":
+          description: Предложение добавлено в избранное
+        "400":
+          description: Неправильный запрос
+        "401":
+          description: Пользователь не авторизован
+    delete: 
+      tags:
+        - offers
+      summary: Удаление предложения из избранного
+      description: Удаляет предложение из списка избранных предложений
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: offerId
           in: path
           required: true
           schema:
             type: string
       responses:
         "200":
-          description: Предложение добавлено/удалено в избранное/из избранного. Объект предложения
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/fullOffer"    
+          description: Предложение удалено из избранного
         "400":
           description: Неправильный запрос
         "401":
           description: Пользователь не авторизован
-        "500":
-          description: Внутренняя ошибка сервера
 
-  /comments/{offerId}:
+  /offers/{offerId}/comments:
     get:
       tags:
         - comments
@@ -248,12 +259,13 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/comment"    
+                  $ref: "#/components/schemas/comment"
         "400":
           description: Неправильный запрос
         "500":
           description: Внутренняя ошибка сервера
-    
+
+  /comments/{offerId}:
     post:
       tags:
         - comments
